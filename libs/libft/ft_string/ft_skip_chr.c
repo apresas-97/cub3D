@@ -6,12 +6,13 @@
 /*   By: apresas- <apresas-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:05:07 by apresas-          #+#    #+#             */
-/*   Updated: 2024/04/02 12:59:00 by apresas-         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:04:11 by apresas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+//////// W I P ///////// USE STRNCHR OR STRNCHR_I INSTEAD
 // All of these functions are a WIP and I still haven't figured out exactly
 // which versions I want
 
@@ -46,7 +47,7 @@ char	*ft_skip_char_ptr(char **str, int ch)
 			return (*str);
 		*str += 1;
 	}
-	return (*str); // ?
+	return (*str);
 }
 
 /* Receives a string and an index, keeps track of the character at str[i]
@@ -75,8 +76,9 @@ starting at str[*i], returns the amount of characters that were skipped */
 // WIP
 int	ft_skip_char(char *str, int *i, char c)
 {
-	int	j = 0;
+	int	j;
 
+	j = 0;
 	while (str[*i + j] == c)
 		j++;
 	*i += j;
@@ -88,8 +90,9 @@ int	ft_skip_char(char *str, int *i, char c)
 // etc.
 void	ft_skip_spaces(char *str, int *i)
 {
-	int	j = *i;
+	int	j;
 
+	j = *i;
 	while (str[j] == ' ')
 		j++;
 	*i = j;

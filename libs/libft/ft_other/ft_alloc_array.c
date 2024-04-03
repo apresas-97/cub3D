@@ -1,45 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_array.c                                    :+:      :+:    :+:   */
+/*   ft_alloc_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apresas- <apresas-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 16:33:50 by apresas-          #+#    #+#             */
-/*   Updated: 2024/04/03 17:28:25 by apresas-         ###   ########.fr       */
+/*   Created: 2024/04/03 17:21:41 by apresas-          #+#    #+#             */
+/*   Updated: 2024/04/03 17:33:52 by apresas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_array(void **array)
+/* Uses malloc and free to safely allocate a void **array of h*w dimensions */
+void	*ft_alloc_array(size_t size, size_t h, size_t w)
 {
-	int	i;
+	void	**array;
+	size_t	i;
 
+	array = malloc(sizeof(void *) * h);
+	if (!array)
+		return (NULL);
 	i = 0;
-	while (array[i])
+	while (i < w)
 	{
-		free(array[i]);
+		array[i] = malloc(size * w);
+		if (!array[i])
+		{
+			ft_free_array_r(array, i - 1);
+			return (NULL);
+		}
 		i++;
 	}
-	free(array);
-	return ;
+	return (array);
 }
-
-void	ft_free_array_r(void **array, int i)
-{
-	while (i >= 0)
-	{
-		free(array[i]);
-		i--;
-	}
-	free(array);
-	return ;
-}
-
-/* Possible functions to add:
-
-	free a char*** array
-	free an int* array with a given termination value
-
-*/

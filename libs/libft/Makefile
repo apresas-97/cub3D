@@ -35,7 +35,8 @@ FT_TYPE_SRC =	$(FT_TYPE_DIR)ft_isdigit.c \
 
 FT_OTHER_DIR = ft_other/
 FT_OTHER_SRC =	$(FT_OTHER_DIR)ft_split.c \
-				$(FT_OTHER_DIR)ft_store_file.c
+				$(FT_OTHER_DIR)ft_store_file.c \
+				$(FT_OTHER_DIR)ft_alloc_array.c
 
 FT_STDLIB_DIR = ft_stdlib/
 FT_STDLIB_SRC =	$(FT_STDLIB_DIR)ft_free_array.c \
@@ -105,7 +106,9 @@ FT_STRING_SRC =	$(FT_STRING_DIR)ft_strlcpy.c \
 				$(FT_STRING_DIR)ft_strtok_r.c \
 				$(FT_STRING_DIR)ft_strspn.c \
 				$(FT_STRING_DIR)ft_strcspn.c \
-				$(FT_STRING_DIR)ft_strpbrk.c
+				$(FT_STRING_DIR)ft_strpbrk.c \
+				$(FT_STRING_DIR)ft_strnchr.c \
+				$(FT_STRING_DIR)ft_strnchr_i.c
 
 FT_MATH_DIR = ft_math/
 FT_MATH_SRC =	$(FT_MATH_DIR)ft_abs.c \
@@ -128,7 +131,7 @@ LAST_SRC = $(lastword $(SRC))
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
 # Dependency files
-DEPS = $(addprefix $(DEPS_DIR), $(SRC:%.c=%.d))
+DEPS = $(addprefix $(OBJ_DIR), $(SRC:%.c=%.d))
 OBJ_COUNT = 0
 
 # Compiler + flags
