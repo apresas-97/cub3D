@@ -7,7 +7,15 @@ OS = $(shell uname -s)
 ### Files
 # Source files
 SRC_DIR = src/
-SRC_FILES =	main.c error.c parser.c verify_arguments.c \
+SRC_FILES =	main.c \
+			error.c \
+			debug.c \
+			parser/parser.c \
+			parser/verify_arguments.c \
+			parser/store_file.c \
+			parser/get_file_elements.c \
+			parser/parse_map.c \
+			parser/file_to_grid.c
 
 # Format: subdir/file.c | For example: main.c map/init.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
@@ -128,15 +136,16 @@ libft:
 	@echo "make[1]: Nothing to be done for 'all'." > .tmp_expected_libft
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) > .tmp_libft
 	@if diff -q .tmp_libft .tmp_expected_libft > /dev/null; then \
-		echo "$(GREEN)Libft is up to date"; \
+		echo "$(GREEN)Libft is up to date$(RESET)"; \
 	else \
-		echo "$(GREEN)Libft compiled succesfully"; \
+		echo "$(GREEN)Libft compiled succesfully$(RESET)"; \
 	fi
 	@$(RM) .tmp_expected_libft .tmp_libft
 
 minilibx:
 	@echo "$(BLUE)Make $(HIGHLIGHT)MiniLibX$(RESET)$(BLUE):$(RESET)"
 	@$(MAKE) --no-print-directory -sC $(MLX_DIR) > /dev/null
+	@echo "$(GREEN)MiniLibX compiled succesfully$(RESET)";
 
 clean:
 	@echo "$(BOLD)clean :$(RESET)"
@@ -164,7 +173,7 @@ title:
 	@echo "$(BCYAN)> Compiling $(BOLD)$(UNDERLINE)cub3D$(RESET)$(BCYAN) <$(RESET)"
 
 run: all
-	./$(NAME)
+	./$(NAME) test.cub
 
 .PHONY: all libft minilibx clean fclean re title run
 -include $(DEPS)
