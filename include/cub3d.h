@@ -46,6 +46,11 @@ found"
 incorrectly formatted"
 #define ERR_NOT_ENOUGH_ELEMENTS "Incorrect file format, not enough elements \
 were provided"
+
+// Map errors
+#define ERR_MAP_NOT_ENCLOSED "Incorrect map format, the map provided is not \
+completely surrounded by walls"
+
 // Fatal errors
 #define ERR_MALLOC "Memory allocation failed"
 
@@ -68,6 +73,7 @@ typedef struct s_player
 
 typedef struct s_map
 {
+	int		file_i; // Line in the file after all elements and before the map
 	int		**grid;
 	int		size[2];
 	int		spawn[2];
@@ -105,16 +111,21 @@ typedef struct s_data
 
 // functions:
 
+void	init_data_struct(t_data *data);
+int	parser(t_data *data, int argc, char **argv);
 int	parse_argument(t_data *data, char *filepath);
-void	clear_newlines(char **file);
 void	parse_file(t_data *data);
-void	get_texture_element(char *line, t_data *data, char **path);
-void	get_color_element(char *line, t_data *data, int *color);
-int	rgb_to_int(int red, int green, int blue);
 int	get_file_elements(t_data *data);
 char	**store_file(char *filepath);
 int	verify_arguments(int argc, char **argv);
 int	c3d_error(char *error);
 void	c3d_exit(char *error);
+void	parse_map(t_data *data, char **file);
+int	is_tile_external(char **file, int i, int j);
+int	**create_map_from_file(char **file, int size[2]);
+
+// debug.c
+void	print_map_grid(t_data *data);
+void	print_map_elements(t_data *data);
 
 #endif // CUB3D_H

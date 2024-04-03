@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   verify_arguments.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apresas- <apresas-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 19:23:55 by apresas-          #+#    #+#             */
-/*   Updated: 2024/04/03 16:59:05 by apresas-         ###   ########.fr       */
+/*   Created: 2024/03/26 14:18:25 by apresas-          #+#    #+#             */
+/*   Updated: 2024/04/03 17:19:09 by apresas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+/* Verifies that the arguments provided to cub3d are valid */
+int	verify_arguments(int argc, char **argv)
 {
-	t_data	data;
-
-	init_data_struct(&data);
-	parser(&data, argc, argv);
-	return (0);
-}
-
-// provisional:
-void	init_data_struct(t_data *data)
-{
-	data->textures.north = NULL;
-	data->textures.south = NULL;
-	data->textures.west = NULL;
-	data->textures.east = NULL;
-	data->textures.floor = -1;
-	data->textures.ceiling = -1;
-	data->textures.stored_values = 0;
+	if (argc > 2)
+		c3d_exit(ERR_TOO_MANY_ARGS);
+	else if (argc < 2)
+		c3d_exit(ERR_TOO_FEW_ARGS);
+	if (ft_strlen(argv[1]) <= 4)
+		c3d_exit(ERR_INVALID_FILEPATH);
+	if (ft_strrcmp(argv[1], ".cub") != 0)
+		c3d_exit(ERR_INVALID_FILE_EXTENSION);
+	return (SUCCESS);
 }
