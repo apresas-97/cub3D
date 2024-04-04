@@ -144,7 +144,7 @@ libft:
 
 minilibx:
 	@echo "$(BLUE)Make $(HIGHLIGHT)MiniLibX$(RESET)$(BLUE):$(RESET)"
-	@$(MAKE) --no-print-directory -sC $(MLX_DIR) > /dev/null
+	@$(MAKE) --no-print-directory -sC $(MLX_DIR) &> /dev/null
 	@echo "$(GREEN)MiniLibX compiled succesfully$(RESET)";
 
 clean:

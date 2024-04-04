@@ -6,7 +6,7 @@
 /*   By: apresas- <apresas-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:01:28 by apresas-          #+#    #+#             */
-/*   Updated: 2024/04/03 18:43:01 by apresas-         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:50:27 by apresas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,12 @@ void	print_map_elements(t_data *data)
 	ft_printf(" Floor = %d\n", data->textures.floor);
 	ft_printf(" Ceiling = %d\n", data->textures.ceiling);
 	ft_printf("----------------------------\n");
+}
+
+void	debug_check(void)
+{
+	static int	n;
+
+	n++;
+	ft_printf("Check %d\n", n);
 }

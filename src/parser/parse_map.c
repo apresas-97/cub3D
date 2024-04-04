@@ -6,7 +6,7 @@
 /*   By: apresas- <apresas-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:27:03 by apresas-          #+#    #+#             */
-/*   Updated: 2024/04/03 18:44:26 by apresas-         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:17:31 by apresas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static void	check_valid_map_characters(char **file);
 static void	check_map_is_surrounded(int **grid, int size[2]);
 static int	tile_is_exterior(int **grid, int y, int x, int size[2]);
+
+void	get_player_spawn(int **grid, int size[2], t_map *map);
 
 void	parse_map(t_data *data, char **file)
 {
@@ -25,7 +27,43 @@ void	parse_map(t_data *data, char **file)
 	check_valid_map_characters(file);
 	data->map.grid = create_map_from_file(file, data->map.size);
 	check_map_is_surrounded(data->map.grid, data->map.size);
+	get_player_spawn(data->map.grid, data->map.size, &data->map);
 	print_map_grid(data);
+}
+
+void	get_player_spawn(int **grid, int size[2], t_map *map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < size[Y])
+	{
+		x = 0;
+		while (x < size[X])
+		{
+			if (grid[x][y] == 'N')
+			{
+				map->player_dir[X] = 0;
+				map->player_dir[Y] = -1;
+			}
+			if (grid[x][y] == 'S')
+			{
+				map->player_dir[X] = 0;
+				map->player_dir[Y] = 1;
+			}
+			else if (grid[x][y] == 'W')
+			{
+				map->player_dir[X] = 1;
+				map->player_dir[Y] = 0;
+			}
+			else if (grid[y][x] == 'E')
+			{
+				map->player_dir[X] = -1;
+				map->player_dir[Y] = 1;
+			}
+		}
+	}
 }
 
 static void	check_valid_map_characters(char **file)
@@ -68,6 +106,7 @@ static void	check_map_is_surrounded(int **grid, int size[2])
 		j = 0;
 		while (j < size[X])
 		{
+			printf("Check [%d][%d]\n", i, j);
 			if (tile_is_exterior(grid, i, j, size))
 			{
 				if (grid[i][j] == '0')
@@ -94,8 +133,8 @@ static int	tile_is_exterior(int **grid, int y, int x, int size[2])
 		{
 			if (y + i != 0 && x + j != 0)
 			{
-				if (y + i > size[Y] || y + i < 0 || \
-					x + j > size[X] || x + j < 0 || \
+				if (y + i >= size[Y] || y + i < 0 || \
+					x + j >= size[X] || x + j < 0 || \
 					grid[y + i][x + j] == ' ')
 					return (1);
 			}

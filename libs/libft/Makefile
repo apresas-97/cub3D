@@ -47,7 +47,6 @@ FT_STDLIB_SRC =	$(FT_STDLIB_DIR)ft_free_array.c \
 				$(FT_STDLIB_DIR)ft_atoi.c \
 				$(FT_STDLIB_DIR)ft_itoa.c \
 				$(FT_STDLIB_DIR)ft_intlen.c \
-				$(FT_STDLIB_DIR)ft_atof.c \
 				$(FT_STDLIB_DIR)ft_calloc.c
 
 FT_STDIO_DIR = ft_stdio/
